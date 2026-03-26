@@ -45,7 +45,7 @@ const buildDimensions = (scores: TrustScores): Dimension[] => [
     score: scores.freedom,
     maxScore: 100,
     icon: <Shield className="w-5 h-5" />,
-    description: "Who is accessing your data, when, where, and for what purpose. Can you control this access? What portion of your information is being accessed? Full data lineage tracking, granular consent, EU-only processing, right to deletion, and no third-party access without explicit permission.",
+    description: "Who is accessing your data, when, where, and for what purpose. Can you control this access? What portion of your information is being accessed? Assessed per EU AI Act (2024) Art. 13–15 transparency requirements and Amsterdam's Algoritmeregister. Full data lineage tracking, granular consent, EU-only processing, right to deletion, and no third-party access without explicit permission.",
     color: "hsl(var(--trust-green))",
   },
   {
@@ -53,7 +53,7 @@ const buildDimensions = (scores: TrustScores): Dimension[] => [
     score: scores.dataStorage,
     maxScore: 100,
     icon: <Database className="w-5 h-5" />,
-    description: "Validates where and how your data is physically stored. Assessed against GDPR (EU), local municipal data ordinances, and the user's regional regulations. Covers data residency requirements, encryption at rest and in transit, retention policies, cross-border transfer safeguards, and right-to-erasure compliance.",
+    description: "Where your data physically resides and who can access it. Validated against GDPR (EU 2016/679), the Dutch Uitvoeringswet AVG (UAVG), and Amsterdam's municipal data ordinances. Covers data residency within EU borders, encryption at rest (AES-256) and in transit (TLS 1.3), retention policies, cross-border transfer safeguards under Schrems II, and right-to-erasure compliance.",
     color: "hsl(var(--amsterdam-navy))",
   },
   {
@@ -61,7 +61,7 @@ const buildDimensions = (scores: TrustScores): Dimension[] => [
     score: scores.openness,
     maxScore: 100,
     icon: <Eye className="w-5 h-5" />,
-    description: "Reflecting Amsterdam's tradition of tolerance and open-mindedness — algorithm documentation is publicly available, AI decisions are explainable in plain language, data usage logs are accessible to users, and regular independent audits ensure accountability.",
+    description: "Rooted in Amsterdam's centuries-old tradition of tolerance and open-mindedness — identified as a core value by Glocalities research among 500+ Amsterdammers (2023, Embassy of the Free Mind). Algorithm documentation is publicly listed in the Amsterdam Algoritmeregister, AI decisions are explainable in plain language per EU AI Act Art. 13, and regular independent audits ensure accountability.",
     color: "hsl(var(--trust-blue))",
   },
   {
@@ -69,7 +69,7 @@ const buildDimensions = (scores: TrustScores): Dimension[] => [
     score: scores.connection,
     maxScore: 100,
     icon: <Heart className="w-5 h-5" />,
-    description: "Amsterdam thrives on making and maintaining connections. This AI keeps humans in the loop — you can always reach a real person, request reasoning behind decisions, and provide feedback that shapes the service.",
+    description: "Glocalities research identifies 'making and maintaining connections' as a defining trait of Amsterdam's soul — the city as a melting pot where diverse people come together. This AI keeps humans in the loop per EU AI Act Art. 14: you can always reach a real person, request reasoning behind decisions, and provide feedback that shapes the service. Aligned with Gemeente Amsterdam's Agenda Digitale Stad principles.",
     color: "hsl(var(--amsterdam-red))",
   },
   {
@@ -77,7 +77,7 @@ const buildDimensions = (scores: TrustScores): Dimension[] => [
     score: scores.inclusivity,
     maxScore: 100,
     icon: <Scale className="w-5 h-5" />,
-    description: "Rooted in Amsterdam's commitment to social and economic equality — the AI is tested for bias across demographics, pricing is fair and non-discriminatory, and the service is accessible to all residents regardless of background.",
+    description: "Amsterdam's commitment to social and economic equality is documented as a core value in the Glocalities Soul of Amsterdam study — with 46% of residents identifying as 'Creatives' driven by fairness and emancipation. AI is tested for bias across demographics per the EU AI Act Annex III high-risk criteria, pricing is fair and non-discriminatory, and services are accessible to all residents regardless of background. Aligned with Amsterdam's Anti-Discrimination Action Plan.",
     color: "hsl(var(--trust-amber))",
   },
   {
@@ -85,7 +85,7 @@ const buildDimensions = (scores: TrustScores): Dimension[] => [
     score: scores.sustainability,
     maxScore: 100,
     icon: <Leaf className="w-5 h-5" />,
-    description: "Amsterdam has always looked forward. AI models run on renewable-energy servers, route optimization reduces CO₂ emissions by 18%, and the platform reports its environmental footprint transparently.",
+    description: "Amsterdam has always looked forward — the Glocalities study shows sustainability as a shared priority among Amsterdammers. AI models run on renewable-energy servers aligned with Amsterdam's Climate Neutral 2050 roadmap, route optimization reduces CO₂ emissions by 18%, and the platform reports its environmental footprint per the EU Corporate Sustainability Reporting Directive (CSRD).",
     color: "hsl(var(--trust-amber))",
   },
 ];
