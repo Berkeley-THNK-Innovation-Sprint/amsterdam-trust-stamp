@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Eye, Leaf, Heart, Scale, Shield, Database, AlertTriangle, CheckCircle } from "lucide-react";
+import { X, Eye, Leaf, Heart, Scale, Shield, Database, AlertTriangle, CheckCircle, ChevronDown } from "lucide-react";
 import TrustUserControls from "./TrustUserControls";
 import TrustGuidanceSection from "./TrustGuidanceSection";
 
