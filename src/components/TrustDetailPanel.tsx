@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Eye, Leaf, Heart, Scale, Compass, AlertTriangle, CheckCircle } from "lucide-react";
+import { X, Eye, Leaf, Heart, Scale, Shield, AlertTriangle, CheckCircle } from "lucide-react";
 
 interface Dimension {
   name: string;
@@ -36,11 +36,11 @@ const defaultScores: TrustScores = {
 
 const buildDimensions = (scores: TrustScores): Dimension[] => [
   {
-    name: "Vrijheid & Privacy",
+    name: "Data Privacy & Control",
     score: scores.freedom,
     maxScore: 100,
-    icon: <Compass className="w-5 h-5" />,
-    description: "True to Amsterdam's spirit of independence and freedom — your data stays yours. Processed within EU boundaries, never sold. You control what's shared, with full GDPR compliance and the right to opt out at any time.",
+    icon: <Shield className="w-5 h-5" />,
+    description: "The cornerstone of trust. Who can access your data, what controls you have over it, where it's stored, and how it flows. Full data lineage tracking, granular consent management, EU-only processing, right to deletion, and no third-party sharing without explicit permission.",
     color: "hsl(var(--trust-green))",
   },
   {
@@ -48,7 +48,7 @@ const buildDimensions = (scores: TrustScores): Dimension[] => [
     score: scores.openness,
     maxScore: 100,
     icon: <Eye className="w-5 h-5" />,
-    description: "Reflecting Amsterdam's tradition of tolerance and open-mindedness — algorithm documentation is publicly available, AI decisions are explainable in plain language, and regular independent audits ensure accountability.",
+    description: "Reflecting Amsterdam's tradition of tolerance and open-mindedness — algorithm documentation is publicly available, AI decisions are explainable in plain language, data usage logs are accessible to users, and regular independent audits ensure accountability.",
     color: "hsl(var(--trust-blue))",
   },
   {
