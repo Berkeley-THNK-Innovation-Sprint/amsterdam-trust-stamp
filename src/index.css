@@ -44,6 +44,8 @@ All colors MUST be HSL.
     --trust-green: 152 55% 42%;
     --trust-amber: 38 92% 50%;
     --trust-blue: 210 80% 55%;
+    --heineken-green: 120 60% 32%;
+    --heineken-green-dark: 120 65% 22%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
