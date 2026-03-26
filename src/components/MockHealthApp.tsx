@@ -4,8 +4,10 @@ import { motion } from "framer-motion";
 import AmsterdamTrustBadge from "./AmsterdamTrustBadge";
 import TrustDetailPanel from "./TrustDetailPanel";
 
-const MockHealthApp = () => {
+const MockHealthApp = ({ approved = true }: { approved?: boolean }) => {
   const [showDetails, setShowDetails] = useState(false);
+  const highScores = { freedom: 95, openness: 90, connection: 85, inclusivity: 88, sustainability: 75 };
+  const lowScores = { freedom: 38, openness: 30, connection: 42, inclusivity: 35, sustainability: 28 };
 
   return (
     <div className="relative w-full max-w-md mx-auto min-h-screen bg-background overflow-hidden font-sans">
