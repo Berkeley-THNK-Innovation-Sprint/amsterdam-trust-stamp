@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Shield, Eye, Leaf, Brain } from "lucide-react";
+import { X, Shield, Eye, Leaf, Heart, Scale, Compass } from "lucide-react";
 
 interface Dimension {
   name: string;
@@ -18,35 +18,43 @@ interface TrustDetailPanelProps {
 
 const dimensions: Dimension[] = [
   {
-    name: "Privacy",
+    name: "Vrijheid & Privacy",
     score: 92,
     maxScore: 100,
-    icon: <Shield className="w-5 h-5" />,
-    description: "Data is processed within EU boundaries. No personal data is sold or shared with third parties. Full GDPR compliance verified.",
+    icon: <Compass className="w-5 h-5" />,
+    description: "True to Amsterdam's spirit of independence and freedom — your data stays yours. Processed within EU boundaries, never sold. You control what's shared, with full GDPR compliance and the right to opt out at any time.",
     color: "hsl(var(--trust-green))",
   },
   {
-    name: "Explainability",
-    score: 78,
-    maxScore: 100,
-    icon: <Brain className="w-5 h-5" />,
-    description: "AI decisions can be explained in plain language. Users can request reasoning behind route suggestions and pricing.",
-    color: "hsl(var(--trust-blue))",
-  },
-  {
-    name: "Transparency",
+    name: "Openness & Transparency",
     score: 85,
     maxScore: 100,
     icon: <Eye className="w-5 h-5" />,
-    description: "Algorithm documentation is publicly available. Data usage policies are clear and accessible. Regular third-party audits.",
+    description: "Reflecting Amsterdam's tradition of tolerance and open-mindedness — algorithm documentation is publicly available, AI decisions are explainable in plain language, and regular independent audits ensure accountability.",
+    color: "hsl(var(--trust-blue))",
+  },
+  {
+    name: "Human Connection",
+    score: 78,
+    maxScore: 100,
+    icon: <Heart className="w-5 h-5" />,
+    description: "Amsterdam thrives on making and maintaining connections. This AI keeps humans in the loop — you can always reach a real person, request reasoning behind decisions, and provide feedback that shapes the service.",
+    color: "hsl(var(--amsterdam-red))",
+  },
+  {
+    name: "Inclusivity & Equality",
+    score: 81,
+    maxScore: 100,
+    icon: <Scale className="w-5 h-5" />,
+    description: "Rooted in Amsterdam's commitment to social and economic equality — the AI is tested for bias across demographics, pricing is fair and non-discriminatory, and the service is accessible to all residents regardless of background.",
     color: "hsl(var(--amsterdam-navy))",
   },
   {
-    name: "Sustainability",
+    name: "Duurzaamheid",
     score: 70,
     maxScore: 100,
     icon: <Leaf className="w-5 h-5" />,
-    description: "AI models run on renewable-energy powered servers. Route optimization reduces CO₂ emissions by an estimated 18%.",
+    description: "Amsterdam has always looked forward. AI models run on renewable-energy servers, route optimization reduces CO₂ emissions by 18%, and the platform reports its environmental footprint transparently.",
     color: "hsl(var(--trust-amber))",
   },
 ];
