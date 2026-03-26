@@ -113,7 +113,7 @@ const MockHeinekenApp = () => {
         onClose={() => setShowDetails(false)}
         appName="Heineken AI"
         approved={false}
-        scores={{ freedom: 35, openness: 25, connection: 40, inclusivity: 30, sustainability: 45 }}
+        scores={{ freedom: 35, openness: 25, connection: 40, inclusivity: 30, sustainability: 45, dataStorage: 22 }}
       />
     </div>
   );

@@ -70,6 +70,14 @@ const buildDimensions = (scores: TrustScores): Dimension[] => [
     color: "hsl(var(--amsterdam-navy))",
   },
   {
+    name: "Data Storage & Compliance",
+    score: scores.dataStorage,
+    maxScore: 100,
+    icon: <Database className="w-5 h-5" />,
+    description: "Validates where and how your data is physically stored. Assessed against GDPR (EU), local municipal data ordinances, and the user's regional regulations. Covers data residency requirements, encryption at rest and in transit, retention policies, cross-border transfer safeguards, and right-to-erasure compliance.",
+    color: "hsl(var(--trust-blue))",
+  },
+  {
     name: "Duurzaamheid",
     score: scores.sustainability,
     maxScore: 100,
