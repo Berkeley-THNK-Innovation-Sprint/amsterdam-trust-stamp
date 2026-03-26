@@ -31,7 +31,7 @@ const MockHealthApp = ({ approved = true }: { approved?: boolean }) => {
           </div>
 
           <div className="absolute top-4 right-4">
-            <AmsterdamTrustBadge onClick={() => setShowDetails(true)} size="md" />
+            <AmsterdamTrustBadge onClick={() => setShowDetails(true)} size="md" approved={approved} />
           </div>
         </div>
       </div>
@@ -93,12 +93,12 @@ const MockHealthApp = ({ approved = true }: { approved?: boolean }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.55 }}
           onClick={() => setShowDetails(true)}
-          className="w-full flex items-center gap-3 p-3 rounded-xl bg-primary/5 border border-primary/10 hover:bg-primary/10 transition-colors text-left"
+          className={`w-full flex items-center gap-3 p-3 rounded-xl ${approved ? "bg-primary/5 border border-primary/10 hover:bg-primary/10" : "bg-destructive/5 border border-destructive/15 hover:bg-destructive/10"} transition-colors text-left`}
         >
-          <AmsterdamTrustBadge onClick={() => setShowDetails(true)} size="sm" />
+          <AmsterdamTrustBadge onClick={() => setShowDetails(true)} size="sm" approved={approved} />
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-display font-semibold text-foreground">Amsterdam AI Verified</p>
-            <p className="text-xs text-muted-foreground">Your health data is protected · Tap for details</p>
+            <p className="text-sm font-display font-semibold text-foreground">{approved ? "Amsterdam AI Verified" : "Not Amsterdam Approved"}</p>
+            <p className="text-xs text-muted-foreground">{approved ? "Your health data is protected · Tap for details" : "Tap to see why this app didn't pass evaluation"}</p>
           </div>
           <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
         </motion.button>
@@ -118,7 +118,8 @@ const MockHealthApp = ({ approved = true }: { approved?: boolean }) => {
         isOpen={showDetails}
         onClose={() => setShowDetails(false)}
         appName="MedAI"
-        scores={{ freedom: 95, openness: 90, connection: 85, inclusivity: 88, sustainability: 75 }}
+        approved={approved}
+        scores={approved ? highScores : lowScores}
       />
     </div>
   );

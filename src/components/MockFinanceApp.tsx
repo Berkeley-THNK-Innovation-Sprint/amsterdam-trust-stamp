@@ -31,7 +31,7 @@ const MockFinanceApp = ({ approved = false }: { approved?: boolean }) => {
           </div>
 
           <div className="absolute top-4 right-4">
-            <AmsterdamTrustBadge onClick={() => setShowDetails(true)} size="md" approved={false} />
+            <AmsterdamTrustBadge onClick={() => setShowDetails(true)} size="md" approved={approved} />
           </div>
         </div>
       </div>
@@ -89,12 +89,12 @@ const MockFinanceApp = ({ approved = false }: { approved?: boolean }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.55 }}
           onClick={() => setShowDetails(true)}
-          className="w-full flex items-center gap-3 p-3 rounded-xl bg-destructive/5 border border-destructive/15 hover:bg-destructive/10 transition-colors text-left"
+          className={`w-full flex items-center gap-3 p-3 rounded-xl ${approved ? "bg-primary/5 border border-primary/10 hover:bg-primary/10" : "bg-destructive/5 border border-destructive/15 hover:bg-destructive/10"} transition-colors text-left`}
         >
-          <AmsterdamTrustBadge onClick={() => setShowDetails(true)} size="sm" approved={false} />
+          <AmsterdamTrustBadge onClick={() => setShowDetails(true)} size="sm" approved={approved} />
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-display font-semibold text-foreground">Not Amsterdam Approved</p>
-            <p className="text-xs text-muted-foreground">Lacks transparency in AI trading decisions</p>
+            <p className="text-sm font-display font-semibold text-foreground">{approved ? "Amsterdam AI Verified" : "Not Amsterdam Approved"}</p>
+            <p className="text-xs text-muted-foreground">{approved ? "Your financial data is protected · Tap for details" : "Lacks transparency in AI trading decisions"}</p>
           </div>
           <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
         </motion.button>
@@ -114,8 +114,8 @@ const MockFinanceApp = ({ approved = false }: { approved?: boolean }) => {
         isOpen={showDetails}
         onClose={() => setShowDetails(false)}
         appName="WealthBot"
-        approved={false}
-        scores={{ freedom: 30, openness: 20, connection: 25, inclusivity: 35, sustainability: 40 }}
+        approved={approved}
+        scores={approved ? highScores : lowScores}
       />
     </div>
   );
