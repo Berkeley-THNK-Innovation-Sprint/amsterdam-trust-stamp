@@ -203,11 +203,11 @@ const TrustDetailPanel = ({ isOpen, onClose, appName, approved = true, scores }:
                                     animate={{ width: `${(dim.score / dim.maxScore) * 100}%` }}
                                     transition={{ delay: 0.05 + i * 0.03, duration: 0.4 }}
                                     className="h-full rounded-full"
-                                    style={{ backgroundColor: passing ? "white" : "hsl(var(--trust-amber))" }}
+                                    style={{ backgroundColor: dim.color }}
                                   />
                                 </div>
-                                <span className="font-display font-bold text-[11px] text-white w-6 text-right">{dim.score}</span>
-                                {passing ? <CheckCircle className="w-2.5 h-2.5 text-white/60" /> : <AlertTriangle className="w-2.5 h-2.5 text-white/80" />}
+                                <span className="font-display font-bold text-[11px] w-6 text-right" style={{ color: dim.color }}>{dim.score}</span>
+                                {passing ? <CheckCircle className="w-2.5 h-2.5" style={{ color: dim.color }} /> : <AlertTriangle className="w-2.5 h-2.5 text-white/80" />}
                                 <ChevronDown className={`w-2.5 h-2.5 text-white/40 transition-transform ${isDimOpen ? "rotate-180" : ""}`} />
                               </button>
                               <AnimatePresence>
