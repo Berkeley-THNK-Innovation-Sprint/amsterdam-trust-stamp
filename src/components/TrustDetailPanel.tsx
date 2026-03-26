@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Eye, Leaf, Heart, Scale, Shield, Database, AlertTriangle, CheckCircle } from "lucide-react";
+import { X, Eye, Leaf, Heart, Scale, Shield, Database, AlertTriangle, CheckCircle, ChevronDown } from "lucide-react";
 import TrustUserControls from "./TrustUserControls";
 import TrustGuidanceSection from "./TrustGuidanceSection";
 
@@ -92,6 +93,7 @@ const buildDimensions = (scores: TrustScores): Dimension[] => [
 const APPROVAL_THRESHOLD = 60;
 
 const TrustDetailPanel = ({ isOpen, onClose, appName, approved = true, scores }: TrustDetailPanelProps) => {
+  const [expandedDim, setExpandedDim] = useState<string | null>(null);
   const dimensions = buildDimensions(scores ?? defaultScores);
   const overallScore = Math.round(
     dimensions.reduce((sum, d) => sum + d.score, 0) / dimensions.length
@@ -186,51 +188,57 @@ const TrustDetailPanel = ({ isOpen, onClose, appName, approved = true, scores }:
                 </motion.div>
               )}
 
-              {/* Dimensions — compact */}
-              <div className="space-y-2">
+              {/* Dimensions — compact rows */}
+              <div className="rounded-xl border border-border overflow-hidden divide-y divide-border">
                 {dimensions.map((dim, i) => {
                   const passing = dim.score >= APPROVAL_THRESHOLD;
+                  const isOpen = expandedDim === dim.name;
                   return (
                     <motion.div
                       key={dim.name}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 + i * 0.06 }}
-                      className={`p-3 rounded-xl border bg-card ${passing ? "border-border" : "border-destructive/20"}`}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.1 + i * 0.04 }}
                     >
-                      <div className="flex items-center justify-between mb-1.5">
-                        <div className="flex items-center gap-2">
-                          <div
-                            className="w-7 h-7 rounded-md flex items-center justify-center"
-                            style={{
-                              backgroundColor: passing ? dim.color : "hsl(var(--muted))",
-                              color: "white",
-                            }}
+                      <button
+                        onClick={() => setExpandedDim(isOpen ? null : dim.name)}
+                        className="w-full flex items-center gap-2 px-3 py-2.5 hover:bg-secondary/30 transition-colors text-left"
+                      >
+                        <div
+                          className="w-6 h-6 rounded flex items-center justify-center flex-shrink-0"
+                          style={{ backgroundColor: passing ? dim.color : "hsl(var(--muted))", color: "white" }}
+                        >
+                          <span className="scale-75">{dim.icon}</span>
+                        </div>
+                        <span className="flex-1 font-display font-semibold text-foreground text-xs">{dim.name}</span>
+                        <div className="w-16 h-1.5 rounded-full bg-secondary flex-shrink-0">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: `${(dim.score / dim.maxScore) * 100}%` }}
+                            transition={{ delay: 0.15 + i * 0.04, duration: 0.4 }}
+                            className="h-full rounded-full"
+                            style={{ backgroundColor: passing ? dim.color : "hsl(var(--destructive))" }}
+                          />
+                        </div>
+                        <span className="font-display font-bold text-xs text-foreground w-8 text-right">{dim.score}</span>
+                        {passing ? <CheckCircle className="w-3 h-3 text-trust-green" /> : <AlertTriangle className="w-3 h-3 text-destructive" />}
+                        <ChevronDown className={`w-3 h-3 text-muted-foreground transition-transform ${isOpen ? "rotate-180" : ""}`} />
+                      </button>
+                      <AnimatePresence>
+                        {isOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="overflow-hidden"
                           >
-                            {dim.icon}
-                          </div>
-                          <span className="font-display font-semibold text-foreground text-sm">{dim.name}</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="font-display font-bold text-foreground">
-                            {dim.score}<span className="text-muted-foreground text-xs font-normal">/{dim.maxScore}</span>
-                          </span>
-                          {passing ? (
-                            <CheckCircle className="w-3.5 h-3.5 text-trust-green" />
-                          ) : (
-                            <AlertTriangle className="w-3.5 h-3.5 text-destructive" />
-                          )}
-                        </div>
-                      </div>
-                      <div className="w-full h-1.5 rounded-full bg-secondary">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: `${(dim.score / dim.maxScore) * 100}%` }}
-                          transition={{ delay: 0.2 + i * 0.06, duration: 0.5, ease: "easeOut" }}
-                          className="h-full rounded-full"
-                          style={{ backgroundColor: passing ? dim.color : "hsl(var(--destructive))" }}
-                        />
-                      </div>
+                            <p className="px-3 pb-3 pt-1 text-[11px] text-muted-foreground leading-relaxed">
+                              {dim.description}
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </motion.div>
                   );
                 })}
