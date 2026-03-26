@@ -136,7 +136,7 @@ const TrustDetailPanel = ({ isOpen, onClose, appName }: TrustDetailPanelProps) =
                 <div>
                   <p className="text-primary-foreground font-display font-bold text-lg">Overall Trust Score</p>
                   <p className="text-primary-foreground/70 text-sm">
-                    Based on 4 evaluated dimensions
+                    Based on 5 dimensions of Amsterdam's soul
                   </p>
                 </div>
               </div>
@@ -185,10 +185,10 @@ const TrustDetailPanel = ({ isOpen, onClose, appName }: TrustDetailPanelProps) =
               {/* Footer */}
               <div className="mt-6 pt-4 border-t border-border text-center">
                 <p className="text-xs text-muted-foreground">
-                  Evaluated under the Amsterdam AI Trust Framework v1.0 · Last assessed March 2026
+                  Evaluated under the Amsterdam AI Trust Framework v1.0 · Rooted in the Soul of Amsterdam
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Gemeente Amsterdam · Bureau Digitalisering & Innovatie
+                  Gemeente Amsterdam · Bureau Digitalisering & Innovatie · Research by Glocalities
                 </p>
               </div>
             </div>
