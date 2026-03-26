@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Eye, Leaf, Heart, Scale, Shield, AlertTriangle, CheckCircle } from "lucide-react";
+import { X, Eye, Leaf, Heart, Scale, Shield, Database, AlertTriangle, CheckCircle } from "lucide-react";
 
 interface Dimension {
   name: string;
@@ -16,6 +16,7 @@ interface TrustScores {
   connection: number;
   inclusivity: number;
   sustainability: number;
+  dataStorage: number;
 }
 
 interface TrustDetailPanelProps {
@@ -32,6 +33,7 @@ const defaultScores: TrustScores = {
   connection: 78,
   inclusivity: 81,
   sustainability: 70,
+  dataStorage: 88,
 };
 
 const buildDimensions = (scores: TrustScores): Dimension[] => [
@@ -66,6 +68,14 @@ const buildDimensions = (scores: TrustScores): Dimension[] => [
     icon: <Scale className="w-5 h-5" />,
     description: "Rooted in Amsterdam's commitment to social and economic equality — the AI is tested for bias across demographics, pricing is fair and non-discriminatory, and the service is accessible to all residents regardless of background.",
     color: "hsl(var(--amsterdam-navy))",
+  },
+  {
+    name: "Data Storage & Compliance",
+    score: scores.dataStorage,
+    maxScore: 100,
+    icon: <Database className="w-5 h-5" />,
+    description: "Validates where and how your data is physically stored. Assessed against GDPR (EU), local municipal data ordinances, and the user's regional regulations. Covers data residency requirements, encryption at rest and in transit, retention policies, cross-border transfer safeguards, and right-to-erasure compliance.",
+    color: "hsl(var(--trust-blue))",
   },
   {
     name: "Duurzaamheid",
