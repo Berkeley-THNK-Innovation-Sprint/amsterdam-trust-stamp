@@ -41,11 +41,11 @@ const defaultScores: TrustScores = {
 
 const buildDimensions = (scores: TrustScores): Dimension[] => [
   {
-    name: "Data Privacy & Control",
+    name: "Data Access & Control",
     score: scores.freedom,
     maxScore: 100,
     icon: <Shield className="w-5 h-5" />,
-    description: "The cornerstone of trust. Who can access your data, what controls you have over it, where it's stored, and how it flows. Full data lineage tracking, granular consent management, EU-only processing, right to deletion, and no third-party sharing without explicit permission.",
+    description: "Who is accessing your data, when, where, and for what purpose. Can you control this access? What portion of your information is being accessed? Full data lineage tracking, granular consent, EU-only processing, right to deletion, and no third-party access without explicit permission.",
     color: "hsl(var(--trust-green))",
   },
   {
@@ -94,6 +94,7 @@ const APPROVAL_THRESHOLD = 60;
 
 const TrustDetailPanel = ({ isOpen, onClose, appName, approved = true, scores }: TrustDetailPanelProps) => {
   const [expandedDim, setExpandedDim] = useState<string | null>(null);
+  const [showDimensions, setShowDimensions] = useState(false);
   const dimensions = buildDimensions(scores ?? defaultScores);
   const overallScore = Math.round(
     dimensions.reduce((sum, d) => sum + d.score, 0) / dimensions.length
@@ -124,7 +125,7 @@ const TrustDetailPanel = ({ isOpen, onClose, appName, approved = true, scores }:
 
             <div className="px-6 pb-8">
               {/* Header */}
-              <div className="flex items-start justify-between mb-6">
+              <div className="flex items-start justify-between mb-4">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <div className={`w-2 h-2 rounded-full ${approved ? "bg-accent" : "bg-destructive"}`} />
@@ -132,11 +133,11 @@ const TrustDetailPanel = ({ isOpen, onClose, appName, approved = true, scores }:
                       {approved ? "Amsterdam Verified" : "Not Approved"}
                     </span>
                   </div>
-                  <h2 className="text-2xl font-display font-bold text-foreground">
+                  <h2 className="text-xl font-display font-bold text-foreground">
                     AI Trust Report
                   </h2>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    {appName} {approved ? "has been evaluated by" : "did not meet standards set by"} the City of Amsterdam
+                  <p className="text-xs text-muted-foreground mt-0.5">
+                    {appName} · City of Amsterdam
                   </p>
                 </div>
                 <button
@@ -147,27 +148,90 @@ const TrustDetailPanel = ({ isOpen, onClose, appName, approved = true, scores }:
                 </button>
               </div>
 
-              {/* Overall score — compact */}
-              <div className={`flex items-center gap-4 p-4 rounded-2xl mb-5 ${approved ? "bg-primary" : "bg-destructive"}`}>
-                <div className="relative w-12 h-12 flex-shrink-0">
-                  <svg viewBox="0 0 48 48" className="w-full h-full -rotate-90">
-                    <circle cx="24" cy="24" r="20" stroke="hsla(0,0%,100%,0.15)" strokeWidth="4" fill="none" />
-                    <circle
-                      cx="24" cy="24" r="20"
-                      stroke="white" strokeWidth="4" fill="none" strokeLinecap="round"
-                      strokeDasharray={`${(overallScore / 100) * 125.7} 125.7`}
-                    />
-                  </svg>
-                  <span className="absolute inset-0 flex items-center justify-center text-sm font-display font-bold text-white">
-                    {overallScore}
-                  </span>
-                </div>
-                <div>
-                  <p className="text-white font-display font-bold text-base">Overall Trust Score</p>
-                  <p className="text-white/70 text-xs">
-                    {approved ? "6 dimensions · Amsterdam's soul" : `Below ${APPROVAL_THRESHOLD}% threshold`}
-                  </p>
-                </div>
+              {/* Overall score with integrated dimension dropdown */}
+              <div className={`rounded-2xl mb-4 overflow-hidden ${approved ? "bg-primary" : "bg-destructive"}`}>
+                <button
+                  onClick={() => setShowDimensions(!showDimensions)}
+                  className="w-full flex items-center gap-3 p-3.5 text-left"
+                >
+                  <div className="relative w-11 h-11 flex-shrink-0">
+                    <svg viewBox="0 0 48 48" className="w-full h-full -rotate-90">
+                      <circle cx="24" cy="24" r="20" stroke="hsla(0,0%,100%,0.15)" strokeWidth="4" fill="none" />
+                      <circle
+                        cx="24" cy="24" r="20"
+                        stroke="white" strokeWidth="4" fill="none" strokeLinecap="round"
+                        strokeDasharray={`${(overallScore / 100) * 125.7} 125.7`}
+                      />
+                    </svg>
+                    <span className="absolute inset-0 flex items-center justify-center text-sm font-display font-bold text-white">
+                      {overallScore}
+                    </span>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-white font-display font-bold text-sm">Overall Trust Score</p>
+                    <p className="text-white/60 text-[11px]">
+                      {approved ? "6 dimensions · tap to explore" : `Below ${APPROVAL_THRESHOLD}% threshold`}
+                    </p>
+                  </div>
+                  <ChevronDown className={`w-4 h-4 text-white/60 transition-transform ${showDimensions ? "rotate-180" : ""}`} />
+                </button>
+
+                <AnimatePresence>
+                  {showDimensions && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-3.5 pb-3.5 space-y-0.5">
+                        {dimensions.map((dim, i) => {
+                          const passing = dim.score >= APPROVAL_THRESHOLD;
+                          const isDimOpen = expandedDim === dim.name;
+                          return (
+                            <div key={dim.name}>
+                              <button
+                                onClick={(e) => { e.stopPropagation(); setExpandedDim(isDimOpen ? null : dim.name); }}
+                                className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-white/10 transition-colors text-left"
+                              >
+                                <span className="scale-[0.6] text-white/80 flex-shrink-0">{dim.icon}</span>
+                                <span className="flex-1 font-display font-medium text-white/90 text-[11px]">{dim.name}</span>
+                                <div className="w-12 h-1 rounded-full bg-white/15 flex-shrink-0">
+                                  <motion.div
+                                    initial={{ width: 0 }}
+                                    animate={{ width: `${(dim.score / dim.maxScore) * 100}%` }}
+                                    transition={{ delay: 0.05 + i * 0.03, duration: 0.4 }}
+                                    className="h-full rounded-full"
+                                    style={{ backgroundColor: passing ? "white" : "hsl(var(--trust-amber))" }}
+                                  />
+                                </div>
+                                <span className="font-display font-bold text-[11px] text-white w-6 text-right">{dim.score}</span>
+                                {passing ? <CheckCircle className="w-2.5 h-2.5 text-white/60" /> : <AlertTriangle className="w-2.5 h-2.5 text-white/80" />}
+                                <ChevronDown className={`w-2.5 h-2.5 text-white/40 transition-transform ${isDimOpen ? "rotate-180" : ""}`} />
+                              </button>
+                              <AnimatePresence>
+                                {isDimOpen && (
+                                  <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: "auto", opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.15 }}
+                                    className="overflow-hidden"
+                                  >
+                                    <p className="px-7 pb-2 text-[10px] text-white/60 leading-relaxed">
+                                      {dim.description}
+                                    </p>
+                                  </motion.div>
+                                )}
+                              </AnimatePresence>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               {/* Approval status banner */}
@@ -175,88 +239,28 @@ const TrustDetailPanel = ({ isOpen, onClose, appName, approved = true, scores }:
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="flex items-start gap-3 p-4 rounded-xl bg-destructive/5 border border-destructive/15 mb-4"
+                  className="flex items-start gap-3 p-3 rounded-xl bg-destructive/5 border border-destructive/15 mb-4"
                 >
-                  <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
+                  <AlertTriangle className="w-4 h-4 text-destructive flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="text-sm font-semibold text-foreground">Why this app wasn't approved</p>
-                    <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
-                      {appName} scored below the required threshold on multiple trust dimensions. 
-                      The Amsterdam AI Trust Framework requires a minimum score of {APPROVAL_THRESHOLD}/100 on each dimension and an overall average above {APPROVAL_THRESHOLD}%.
+                    <p className="text-xs font-semibold text-foreground">Why this app wasn't approved</p>
+                    <p className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">
+                      Scored below {APPROVAL_THRESHOLD}/100 on multiple dimensions.
                     </p>
                   </div>
                 </motion.div>
               )}
 
-              {/* Dimensions — compact rows */}
-              <div className="rounded-xl border border-border overflow-hidden divide-y divide-border">
-                {dimensions.map((dim, i) => {
-                  const passing = dim.score >= APPROVAL_THRESHOLD;
-                  const isOpen = expandedDim === dim.name;
-                  return (
-                    <motion.div
-                      key={dim.name}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.1 + i * 0.04 }}
-                    >
-                      <button
-                        onClick={() => setExpandedDim(isOpen ? null : dim.name)}
-                        className="w-full flex items-center gap-2 px-3 py-2.5 hover:bg-secondary/30 transition-colors text-left"
-                      >
-                        <div
-                          className="w-6 h-6 rounded flex items-center justify-center flex-shrink-0"
-                          style={{ backgroundColor: passing ? dim.color : "hsl(var(--muted))", color: "white" }}
-                        >
-                          <span className="scale-75">{dim.icon}</span>
-                        </div>
-                        <span className="flex-1 font-display font-semibold text-foreground text-xs">{dim.name}</span>
-                        <div className="w-16 h-1.5 rounded-full bg-secondary flex-shrink-0">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: `${(dim.score / dim.maxScore) * 100}%` }}
-                            transition={{ delay: 0.15 + i * 0.04, duration: 0.4 }}
-                            className="h-full rounded-full"
-                            style={{ backgroundColor: passing ? dim.color : "hsl(var(--destructive))" }}
-                          />
-                        </div>
-                        <span className="font-display font-bold text-xs text-foreground w-8 text-right">{dim.score}</span>
-                        {passing ? <CheckCircle className="w-3 h-3 text-trust-green" /> : <AlertTriangle className="w-3 h-3 text-destructive" />}
-                        <ChevronDown className={`w-3 h-3 text-muted-foreground transition-transform ${isOpen ? "rotate-180" : ""}`} />
-                      </button>
-                      <AnimatePresence>
-                        {isOpen && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="overflow-hidden"
-                          >
-                            <p className="px-3 pb-3 pt-1 text-[11px] text-muted-foreground leading-relaxed">
-                              {dim.description}
-                            </p>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </motion.div>
-                  );
-                })}
-              </div>
-
-              {/* User privacy controls */}
+              {/* User access controls */}
               <TrustUserControls />
 
               {/* Guidance & education */}
               <TrustGuidanceSection />
 
               {/* Footer */}
-              <div className="mt-6 pt-4 border-t border-border text-center">
-                <p className="text-xs text-muted-foreground">
-                  Evaluated under the Amsterdam AI Trust Framework v1.0 · Rooted in the Soul of Amsterdam
-                </p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Gemeente Amsterdam · Bureau Digitalisering & Innovatie · Research by Glocalities
+              <div className="mt-5 pt-3 border-t border-border text-center">
+                <p className="text-[10px] text-muted-foreground">
+                  Amsterdam AI Trust Framework v1.0 · Gemeente Amsterdam · Glocalities
                 </p>
               </div>
             </div>
