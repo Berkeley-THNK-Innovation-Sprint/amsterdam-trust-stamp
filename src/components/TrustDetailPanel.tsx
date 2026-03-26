@@ -145,32 +145,25 @@ const TrustDetailPanel = ({ isOpen, onClose, appName, approved = true, scores }:
                 </button>
               </div>
 
-              {/* Overall score */}
-              <div className={`flex items-center gap-5 p-5 rounded-2xl mb-6 ${approved ? "bg-primary" : "bg-destructive"}`}>
-                <div className="relative w-16 h-16">
-                  <svg viewBox="0 0 64 64" className="w-full h-full -rotate-90">
-                    <circle cx="32" cy="32" r="28" stroke="hsla(0,0%,100%,0.15)" strokeWidth="5" fill="none" />
+              {/* Overall score — compact */}
+              <div className={`flex items-center gap-4 p-4 rounded-2xl mb-5 ${approved ? "bg-primary" : "bg-destructive"}`}>
+                <div className="relative w-12 h-12 flex-shrink-0">
+                  <svg viewBox="0 0 48 48" className="w-full h-full -rotate-90">
+                    <circle cx="24" cy="24" r="20" stroke="hsla(0,0%,100%,0.15)" strokeWidth="4" fill="none" />
                     <circle
-                      cx="32" cy="32" r="28"
-                      stroke="white"
-                      strokeWidth="5"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeDasharray={`${(overallScore / 100) * 175.9} 175.9`}
+                      cx="24" cy="24" r="20"
+                      stroke="white" strokeWidth="4" fill="none" strokeLinecap="round"
+                      strokeDasharray={`${(overallScore / 100) * 125.7} 125.7`}
                     />
                   </svg>
-                  <span className="absolute inset-0 flex items-center justify-center text-lg font-display font-bold text-white">
+                  <span className="absolute inset-0 flex items-center justify-center text-sm font-display font-bold text-white">
                     {overallScore}
                   </span>
                 </div>
                 <div>
-                  <p className="text-white font-display font-bold text-lg">
-                    Overall Trust Score
-                  </p>
-                  <p className="text-white/70 text-sm">
-                    {approved
-                      ? "Based on 6 dimensions of Amsterdam's soul"
-                      : `Below ${APPROVAL_THRESHOLD}% threshold for Amsterdam approval`}
+                  <p className="text-white font-display font-bold text-base">Overall Trust Score</p>
+                  <p className="text-white/70 text-xs">
+                    {approved ? "6 dimensions · Amsterdam's soul" : `Below ${APPROVAL_THRESHOLD}% threshold`}
                   </p>
                 </div>
               </div>
@@ -193,8 +186,8 @@ const TrustDetailPanel = ({ isOpen, onClose, appName, approved = true, scores }:
                 </motion.div>
               )}
 
-              {/* Dimensions */}
-              <div className="space-y-4">
+              {/* Dimensions — compact */}
+              <div className="space-y-2">
                 {dimensions.map((dim, i) => {
                   const passing = dim.score >= APPROVAL_THRESHOLD;
                   return (
@@ -202,13 +195,13 @@ const TrustDetailPanel = ({ isOpen, onClose, appName, approved = true, scores }:
                       key={dim.name}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 + i * 0.08 }}
-                      className={`p-4 rounded-xl border bg-card ${passing ? "border-border" : "border-destructive/20"}`}
+                      transition={{ delay: 0.1 + i * 0.06 }}
+                      className={`p-3 rounded-xl border bg-card ${passing ? "border-border" : "border-destructive/20"}`}
                     >
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-3">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <div className="flex items-center gap-2">
                           <div
-                            className="w-9 h-9 rounded-lg flex items-center justify-center"
+                            className="w-7 h-7 rounded-md flex items-center justify-center"
                             style={{
                               backgroundColor: passing ? dim.color : "hsl(var(--muted))",
                               color: "white",
@@ -216,31 +209,28 @@ const TrustDetailPanel = ({ isOpen, onClose, appName, approved = true, scores }:
                           >
                             {dim.icon}
                           </div>
-                          <span className="font-display font-semibold text-foreground">{dim.name}</span>
+                          <span className="font-display font-semibold text-foreground text-sm">{dim.name}</span>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <span className="font-display font-bold text-lg text-foreground">
-                            {dim.score}<span className="text-muted-foreground text-sm font-normal">/{dim.maxScore}</span>
+                        <div className="flex items-center gap-1.5">
+                          <span className="font-display font-bold text-foreground">
+                            {dim.score}<span className="text-muted-foreground text-xs font-normal">/{dim.maxScore}</span>
                           </span>
                           {passing ? (
-                            <CheckCircle className="w-4 h-4 text-trust-green" />
+                            <CheckCircle className="w-3.5 h-3.5 text-trust-green" />
                           ) : (
-                            <AlertTriangle className="w-4 h-4 text-destructive" />
+                            <AlertTriangle className="w-3.5 h-3.5 text-destructive" />
                           )}
                         </div>
                       </div>
-                      <div className="w-full h-2 rounded-full bg-secondary mb-3">
+                      <div className="w-full h-1.5 rounded-full bg-secondary">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${(dim.score / dim.maxScore) * 100}%` }}
-                          transition={{ delay: 0.3 + i * 0.08, duration: 0.6, ease: "easeOut" }}
+                          transition={{ delay: 0.2 + i * 0.06, duration: 0.5, ease: "easeOut" }}
                           className="h-full rounded-full"
                           style={{ backgroundColor: passing ? dim.color : "hsl(var(--destructive))" }}
                         />
                       </div>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        {dim.description}
-                      </p>
                     </motion.div>
                   );
                 })}
