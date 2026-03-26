@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Eye, Leaf, Heart, Scale, Shield, AlertTriangle, CheckCircle } from "lucide-react";
+import { X, Eye, Leaf, Heart, Scale, Shield, Database, AlertTriangle, CheckCircle } from "lucide-react";
 
 interface Dimension {
   name: string;
@@ -16,6 +16,7 @@ interface TrustScores {
   connection: number;
   inclusivity: number;
   sustainability: number;
+  dataStorage: number;
 }
 
 interface TrustDetailPanelProps {
@@ -32,6 +33,7 @@ const defaultScores: TrustScores = {
   connection: 78,
   inclusivity: 81,
   sustainability: 70,
+  dataStorage: 88,
 };
 
 const buildDimensions = (scores: TrustScores): Dimension[] => [
