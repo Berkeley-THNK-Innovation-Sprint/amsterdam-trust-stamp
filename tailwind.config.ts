@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['DM Sans', 'system-ui', 'sans-serif'],
+        display: ['Space Grotesk', 'system-ui', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -46,6 +50,16 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        amsterdam: {
+          red: "hsl(var(--amsterdam-red))",
+          navy: "hsl(var(--amsterdam-navy))",
+          "navy-light": "hsl(var(--amsterdam-navy-light))",
+        },
+        trust: {
+          green: "hsl(var(--trust-green))",
+          amber: "hsl(var(--trust-amber))",
+          blue: "hsl(var(--trust-blue))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
