@@ -70,22 +70,6 @@ const MockHealthApp = ({ approved = true }: { approved?: boolean }) => {
           <ChevronRight className="w-4 h-4 text-muted-foreground" />
         </motion.div>
 
-        {/* AI diagnosis card */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.45 }}
-          className="flex items-center gap-3 p-3.5 rounded-xl border border-border bg-card"
-        >
-          <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-primary">
-            <FileText className="w-5 h-5 text-primary-foreground" />
-          </div>
-          <div className="flex-1">
-            <span className="font-semibold text-foreground text-sm">AI Symptom Analysis</span>
-            <p className="text-xs text-muted-foreground mt-0.5">Your medical data stays within EU servers</p>
-          </div>
-          <ChevronRight className="w-4 h-4 text-muted-foreground" />
-        </motion.div>
 
         {/* Trust callout */}
         <motion.button
