@@ -195,7 +195,7 @@ const TrustDetailPanel = ({ isOpen, onClose, appName, approved = true, scores }:
                                 onClick={(e) => { e.stopPropagation(); setExpandedDim(isDimOpen ? null : dim.name); }}
                                 className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-white/10 transition-colors text-left"
                               >
-                                <span className="scale-[0.6] text-white/80 flex-shrink-0">{dim.icon}</span>
+                                <span className="scale-[0.6] flex-shrink-0" style={{ color: dim.color }}>{dim.icon}</span>
                                 <span className="flex-1 font-display font-medium text-white/90 text-[11px]">{dim.name}</span>
                                 <div className="w-12 h-1 rounded-full bg-white/15 flex-shrink-0">
                                   <motion.div
