@@ -149,7 +149,7 @@ const TrustDetailPanel = ({ isOpen, onClose, appName, approved = true, scores }:
               </div>
 
               {/* Overall score with integrated dimension dropdown */}
-              <div className={`rounded-2xl mb-4 overflow-hidden ${approved ? "bg-primary" : "bg-destructive"}`}>
+              <div className={`rounded-2xl mb-4 overflow-hidden ${approved ? "bg-gradient-to-br from-[hsl(220,55%,18%)] via-[hsl(210,80%,30%)] to-[hsl(152,55%,35%)]" : "bg-destructive"}`}>
                 <button
                   onClick={() => setShowDimensions(!showDimensions)}
                   className="w-full flex items-center gap-3 p-3.5 text-left"
