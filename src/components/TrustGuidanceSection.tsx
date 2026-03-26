@@ -14,8 +14,8 @@ const guidanceItems: GuidanceItem[] = [
     icon: <Car className="w-4 h-4" />,
     tag: "Live Pilot",
     tagColor: "bg-trust-green/10 text-trust-green",
-    title: "Experience Autonomous Driving",
-    description: "Join our controlled park pilot next week — experience AI-driven transport in a safe, supervised environment.",
+    title: "Experience Autonomous Diagnosis 24×7",
+    description: "Try blood pressure, heart rate, and other non-intrusive health tests at a pilot location open around the clock — no appointment needed.",
   },
   {
     icon: <Megaphone className="w-4 h-4" />,
