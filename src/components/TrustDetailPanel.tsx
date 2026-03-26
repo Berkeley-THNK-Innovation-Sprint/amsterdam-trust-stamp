@@ -169,7 +169,7 @@ const TrustDetailPanel = ({ isOpen, onClose, appName, approved = true, scores }:
                   </p>
                   <p className="text-white/70 text-sm">
                     {approved
-                      ? "Based on 5 dimensions of Amsterdam's soul"
+                      ? "Based on 6 dimensions of Amsterdam's soul"
                       : `Below ${APPROVAL_THRESHOLD}% threshold for Amsterdam approval`}
                   </p>
                 </div>
