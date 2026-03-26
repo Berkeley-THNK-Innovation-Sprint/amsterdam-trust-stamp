@@ -1,5 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Eye, Leaf, Heart, Scale, Shield, Database, AlertTriangle, CheckCircle } from "lucide-react";
+import TrustUserControls from "./TrustUserControls";
+import TrustGuidanceSection from "./TrustGuidanceSection";
 
 interface Dimension {
   name: string;
@@ -46,6 +48,14 @@ const buildDimensions = (scores: TrustScores): Dimension[] => [
     color: "hsl(var(--trust-green))",
   },
   {
+    name: "Data Storage & Compliance",
+    score: scores.dataStorage,
+    maxScore: 100,
+    icon: <Database className="w-5 h-5" />,
+    description: "Validates where and how your data is physically stored. Assessed against GDPR (EU), local municipal data ordinances, and the user's regional regulations. Covers data residency requirements, encryption at rest and in transit, retention policies, cross-border transfer safeguards, and right-to-erasure compliance.",
+    color: "hsl(var(--amsterdam-navy))",
+  },
+  {
     name: "Openness & Transparency",
     score: scores.openness,
     maxScore: 100,
@@ -67,15 +77,7 @@ const buildDimensions = (scores: TrustScores): Dimension[] => [
     maxScore: 100,
     icon: <Scale className="w-5 h-5" />,
     description: "Rooted in Amsterdam's commitment to social and economic equality — the AI is tested for bias across demographics, pricing is fair and non-discriminatory, and the service is accessible to all residents regardless of background.",
-    color: "hsl(var(--amsterdam-navy))",
-  },
-  {
-    name: "Data Storage & Compliance",
-    score: scores.dataStorage,
-    maxScore: 100,
-    icon: <Database className="w-5 h-5" />,
-    description: "Validates where and how your data is physically stored. Assessed against GDPR (EU), local municipal data ordinances, and the user's regional regulations. Covers data residency requirements, encryption at rest and in transit, retention policies, cross-border transfer safeguards, and right-to-erasure compliance.",
-    color: "hsl(var(--trust-blue))",
+    color: "hsl(var(--trust-amber))",
   },
   {
     name: "Duurzaamheid",
@@ -243,6 +245,12 @@ const TrustDetailPanel = ({ isOpen, onClose, appName, approved = true, scores }:
                   );
                 })}
               </div>
+
+              {/* User privacy controls */}
+              <TrustUserControls />
+
+              {/* Guidance & education */}
+              <TrustGuidanceSection />
 
               {/* Footer */}
               <div className="mt-6 pt-4 border-t border-border text-center">
