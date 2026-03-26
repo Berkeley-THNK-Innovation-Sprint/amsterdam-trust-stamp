@@ -24,8 +24,8 @@ const privacyControls: PrivacyControl[] = [
   {
     id: "location-access",
     label: "Location: While Using App only",
-    description: "Restrict from 'Always' to 'While Using' to improve your privacy posture.",
-    impactLabel: "+5 privacy",
+    description: "Restrict from 'Always' to 'While Using' to limit who accesses your location and when.",
+    impactLabel: "+5 access control",
     impactScore: 5,
     defaultEnabled: false,
   },
@@ -33,7 +33,7 @@ const privacyControls: PrivacyControl[] = [
     id: "language-pref",
     label: "Share preferred language",
     description: "Get localised tips and content. A small, safe step to experience AI personalisation with zero risk.",
-    impactLabel: "+1 privacy",
+    impactLabel: "+1 access control",
     impactScore: 1,
     defaultEnabled: false,
     isLowStakes: true,
@@ -49,8 +49,8 @@ const privacyControls: PrivacyControl[] = [
   {
     id: "third-party-analytics",
     label: "Block third-party analytics",
-    description: "Prevent usage data from being shared with external analytics providers.",
-    impactLabel: "+4 privacy",
+    description: "Block external analytics providers from accessing your usage data.",
+    impactLabel: "+4 access control",
     impactScore: 4,
     defaultEnabled: false,
   },
@@ -58,7 +58,7 @@ const privacyControls: PrivacyControl[] = [
     id: "data-retention",
     label: "Auto-delete data after 90 days",
     description: "Automatically purge personal data every 90 days. Export available before deletion.",
-    impactLabel: "+3 privacy",
+    impactLabel: "+3 access control",
     impactScore: 3,
     defaultEnabled: false,
   },
@@ -95,8 +95,8 @@ const TrustUserControls = () => {
             <Settings className="w-4 h-4" />
           </div>
           <div>
-            <p className="font-display font-semibold text-foreground text-sm">Your Privacy Controls</p>
-            <p className="text-[11px] text-muted-foreground">Adjust data sharing · try AI safely</p>
+            <p className="font-display font-semibold text-foreground text-sm">Your Data Access Controls</p>
+            <p className="text-[11px] text-muted-foreground">Control who accesses your data · try AI safely</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -149,7 +149,7 @@ const TrustUserControls = () => {
           <div className="flex items-center gap-2 p-2 rounded-lg bg-primary/5 border border-primary/10">
             <Shield className="w-3.5 h-3.5 text-primary flex-shrink-0" />
             <p className="text-[10px] text-muted-foreground">
-              Changes apply instantly to your privacy posture.
+              Changes apply instantly to your data access posture.
             </p>
           </div>
         </motion.div>
